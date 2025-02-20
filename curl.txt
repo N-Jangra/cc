@@ -1,0 +1,43 @@
+Some curl operations to work on our api :
+
+to get all the data or holidays from db :
+curl -X GET "http://admin:0000@localhost:5984/holidays/_all_docs?include_docs=true" 
+
+to get data or holidays from app :
+curl -X GET http://localhost:8080/ga
+
+to go to root directory :
+curl -X GET http://localhost:8080/
+
+to add new data or holiday to db :
+curl -X POST "http://localhost:8080/n?Name=New%20Year&iso_date=2025-01-01&international=true"
+
+to start the app to fetch and feed data or holiday to db :
+curl -X GET http://localhost:8080/app
+
+to delete all data or holidays from db :
+curl -X DELETE http://localhost:8080/da
+
+to delete specific data or holiday from db :
+curl -X DELETE http://localhost:8080/d/2025-01-02
+
+to get the specific data or holiday from db and update it :
+curl -X GET http://admin:0000@localhost:5984/holidays/2025-01-01
+replace id with your id which you wanted to GET, after that you will get initials such as :
+{"_id":"2025-01-01","_rev":"9-43319b9b4bc13f50b79eaf9473c9605e","international":false,"iso_date":"2025-01-01","name":"New Year's Day"}
+
+if you want to update them then copy the _rev values and paste them in 
+curl -X PUT http://admin:0000@localhost:5984/holidays/2025-01-01 \
+     -H "Content-Type: application/json" \
+     -d '{
+       "_id": "2025-01-01",
+       "_rev": "9-43319b9b4bc13f50b79eaf9473c9605e",
+       "name": "Updated Holiday Name",
+       "iso_date": "2125-12-25",
+       "international": true
+     }'
+{"ok":true,"id":"2025-01-01","rev":"10-04385b88da56c9c2d80a1402e1fe452e"}
+here, replace the field you want to edit or update.
+
+
+
