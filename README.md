@@ -21,8 +21,8 @@ Ensure you have the following installed:
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/your-repo/holiday-api.git
-   cd holiday-api
+   git clone https://github.com/N-Jangra/cc.git
+   cd cc
    ```
 
 2. **Configure the Database:**
