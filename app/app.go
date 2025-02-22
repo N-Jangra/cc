@@ -20,9 +20,8 @@ func App() {
 	}
 
 	// Your Calendarific API key
-	apiKey := "nOOmoEMK4YY8UNYpEswN4rprA0OTXFSu" // replace with your api key
-	url := fmt.Sprintf("https://calendarific.com/api/v2/holidays?api_key=%s&country=%s&year=%d", apiKey, countryCode, time.Now().Year())
-
+	ak := os.Getenv("apikey")
+	url := fmt.Sprintf("https://calendarific.com/api/v2/holidays?api_key=%s&country=IN&year=%d", ak, time.Now().Year())
 	// Make the HTTP request
 	res, err := http.Get(url)
 	if err != nil {
