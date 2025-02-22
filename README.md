@@ -33,6 +33,7 @@ Ensure you have the following installed:
      DB_USER=admin
      DB_PASSWORD=0000
      DB_NAME=holidays
+     apikey=<your-apikey>
      ```
 
 3. **Install dependencies:**
