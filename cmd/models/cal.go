@@ -2,7 +2,7 @@ package models
 
 // Holiday model represents a holiday's data.
 type Holiday struct {
-	ID   int    `json:"id"`
+	ID   string `json:"id"`
 	Name string `json:"name"`
 	Date struct {
 		ISO string `json:"iso"`

@@ -31,8 +31,13 @@ func UpdateH(holiday models.Holiday, id string) (models.Holiday, error) {
 
 	// Ensure _id and _rev are preserved
 	existing["name"] = holiday.Name
-	existing["iso_date"] = holiday.Date.ISO
 	existing["international"] = holiday.International
+
+	// Fix how iso_date is stored inside a nested "date" field
+	if _, ok := existing["date"].(map[string]interface{}); !ok {
+		existing["date"] = map[string]interface{}{}
+	}
+	existing["date"].(map[string]interface{})["iso"] = holiday.Date.ISO
 
 	// Save the updated document
 	_, err := DB.Put(context.TODO(), id, existing)

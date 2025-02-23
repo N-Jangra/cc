@@ -27,10 +27,13 @@ func main() {
 	//add / insert new holiday to db
 	e.POST("/n", handlers.Add)
 
-	//read all data --iso date is not read from data---(have to use "curl -X GET "http://admin:0000@localhost:5984/holidays/_all_docs?include_docs=true" )
+	//read all data
 	e.GET("/ga", handlers.GetA)
 
-	//update holiday from db  --- (have to use user:pass before localhost to access as db is not accessable to public)
+	//read specific data from id
+	e.GET("/g/:id", handlers.GetSH)
+
+	//update holiday from db
 	e.PUT("/u/:id", handlers.Up)
 
 	//delete specific holiday from db

@@ -56,8 +56,9 @@ func GetH() ([]models.Holiday, error) {
 
 		// Convert raw JSON into models.Holiday
 		var holiday models.Holiday
-		holiday.ID, _ = doc["_id"].(int) // Convert _id field
+		holiday.ID, _ = doc["_id"].(string) // Convert _id field
 		holiday.Name, _ = doc["name"].(string)
+		holiday.Date.ISO, _ = doc["iso_date"].(string)
 
 		// Extract ISO date properly
 		if dateField, ok := doc["date"].(map[string]interface{}); ok {
@@ -74,4 +75,43 @@ func GetH() ([]models.Holiday, error) {
 	}
 
 	return holidays, nil
+}
+
+// GetS function to get specific holiday data
+func GetS(id string) (*models.Holiday, error) {
+	DB := db.InitDB()
+
+	// Retrieve the document by _id
+	doc := DB.Get(context.TODO(), id)
+	if doc.Err() != nil {
+		return nil, fmt.Errorf("error retrieving document: %w", doc.Err())
+	}
+
+	// Store raw JSON document
+	var data map[string]interface{}
+	if err := doc.ScanDoc(&data); err != nil {
+		return nil, fmt.Errorf("error scanning document: %w", err)
+	}
+
+	// Convert raw JSON into models.Holiday
+	holiday := &models.Holiday{}
+	holiday.ID, _ = data["_id"].(string) // Convert _id field
+	if rev, ok := data["_rev"].(string); ok {
+		holiday.ID = rev // Store _rev if available
+	}
+	holiday.Name, _ = data["name"].(string)
+	holiday.Date.ISO, _ = data["iso_date"].(string)
+
+	// Extract ISO date properly
+	if dateField, ok := data["date"].(map[string]interface{}); ok {
+		if iso, exists := dateField["iso"]; exists {
+			if isoStr, valid := iso.(string); valid {
+				holiday.Date.ISO = isoStr
+			}
+		}
+	}
+
+	holiday.International, _ = data["international"].(bool)
+
+	return holiday, nil
 }

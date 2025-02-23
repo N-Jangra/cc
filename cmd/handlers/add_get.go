@@ -40,3 +40,18 @@ func GetA(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, holidays)
 }
+
+func GetSH(c echo.Context) error {
+	id := c.Param("id") // Get holiday ID from URL parameter
+
+	// Fetch holiday data from the repository
+	holiday, err := repositories.GetS(id)
+	if err != nil {
+		return c.JSON(http.StatusNotFound, map[string]string{
+			"error": err.Error(),
+		})
+	}
+
+	// Return holiday data as JSON response
+	return c.JSON(http.StatusOK, holiday)
+}

@@ -11,21 +11,25 @@ import (
 
 // handler for UpdateH function
 func Up(c echo.Context) error {
-	id := c.Param("id") // Keep ID as string
+	id := c.Param("id") // Extract the holiday ID from the URL
 
-	// Bind the request body to holiday struct
-	user := models.Holiday{}
-	if err := c.Bind(&user); err != nil {
-		return c.JSON(http.StatusBadRequest, "Invalid request body")
+	var holiday models.Holiday
+	if err := c.Bind(&holiday); err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request"})
 	}
 
-	// Call UpdateH with a string ID
-	updatedUser, err := repositories.UpdateH(user, id)
+	// Manually map `iso_date` to `holiday.Date.ISO`
+	if iso, ok := c.Get("iso_date").(string); ok {
+		holiday.Date.ISO = iso
+	}
+
+	// Call the repository function to update the holiday
+	updatedHoliday, err := repositories.UpdateH(holiday, id)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, err.Error())
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
 	}
 
-	return c.JSON(http.StatusOK, updatedUser)
+	return c.JSON(http.StatusOK, updatedHoliday)
 }
 
 // handler for DeleteH function

@@ -6,6 +6,9 @@ curl -X GET "http://admin:0000@localhost:5984/holidays/_all_docs?include_docs=tr
 to get data or holidays from app :
 curl -X GET http://localhost:8080/ga
 
+to get specific data or holiday info from db :
+curl -X GET http://localhost:8080/g/2025-12-24
+
 to go to root directory :
 curl -X GET http://localhost:8080/
 
@@ -22,22 +25,23 @@ to delete specific data or holiday from db :
 curl -X DELETE http://localhost:8080/d/2025-01-02
 
 to get the specific data or holiday from db and update it :
-curl -X GET http://admin:0000@localhost:5984/holidays/2025-01-01
-replace id with your id which you wanted to GET, after that you will get initials such as :
-{"_id":"2025-01-01","_rev":"9-43319b9b4bc13f50b79eaf9473c9605e","international":false,"iso_date":"2025-01-01","name":"New Year's Day"}
+curl -X GET curl -X GET http://localhost:8080/g/2025-12-24
+the output which is achieved is :
+{"id":"25-f5561ff36b4e5df2cf6d579fc3f38131","name":"Christmas Eve","date":{"iso":"2025-12-24"},"international":false}
+here, id refers to rev.
 
-if you want to update them then copy the _rev values and paste them in 
-curl -X PUT http://admin:0000@localhost:5984/holidays/2025-01-01 \
-     -H "Content-Type: application/json" \
-     -d '{
-       "_id": "2025-01-01",
+if you want to update them then copy the _rev values and paste them in (change 2025-12-24 to which you want to update)
+curl -X PUT http://localhost:8080/u/2025-12-24 \
+  -H "Content-Type: application/json" \
+  -d '{
+       "_id": "2025-12-24",
        "_rev": "9-43319b9b4bc13f50b79eaf9473c9605e",
        "name": "Updated Holiday Name",
-       "iso_date": "2125-12-25",
+       "date": { "iso": "2125-12-25" },
        "international": true
      }'
 {"ok":true,"id":"2025-01-01","rev":"10-04385b88da56c9c2d80a1402e1fe452e"}
-here, replace the field you want to edit or update.
+
 
 
 
