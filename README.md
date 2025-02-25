@@ -30,9 +30,9 @@ Ensure you have the following installed:
      ```env
      DB_HOST=localhost
      DB_PORT=5984
-     DB_USER=admin
-     DB_PASSWORD=0000
-     DB_NAME=holidays
+     DB_USER=USERNAME
+     DB_PASSWORD=PASSWORD
+     DB_NAME=DATABASE_NAME
      apikey=<your-apikey>
      ```
 
