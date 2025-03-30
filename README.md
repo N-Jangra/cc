@@ -114,6 +114,6 @@ For any questions or suggestions, feel free to reach out:
 
     Author: Nitin
     Email: itznitinjangra@gmail.com
-    GitHub: n-jangra
+    GitHub: N-Jangra
 
 
