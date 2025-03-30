@@ -108,6 +108,12 @@ You can test the API using **Postman** or the provided `cURL` commands.
 ## License
 This project is open-source and free to use under the **MIT License**.
 
----
-Happy Coding! 🚀
+## Contact 
+
+For any questions or suggestions, feel free to reach out:
+
+    Author: Nitin
+    Email: itznitinjangra@gmail.com
+    GitHub: n-jangra
+
 
